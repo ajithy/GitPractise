@@ -1,0 +1,304 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+   <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.amcastle</groupId>
+    <artifactId>webapp</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>amcastle</name>
+
+    <!-- Profiles used to build with different settings -->
+    <!-- Use a pre-defined one or create your own! -->
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <properties>
+                <resource.subdir>prod</resource.subdir>
+                <cache.prefill>true</cache.prefill>
+            </properties>
+        </profile>
+        <profile>
+            <id>uat</id>
+            <properties>
+                <resource.subdir>uat</resource.subdir>
+                <cache.prefill>true</cache.prefill>
+            </properties>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <resource.subdir>dev</resource.subdir>
+                <cache.prefill>false</cache.prefill>
+            </properties>
+        </profile>
+    </profiles>
+    
+      <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+        <org.springframework.security-version>3.1.0.RELEASE</org.springframework.security-version>
+        <org.slf4j-version>1.6.1</org.slf4j-version>
+    </properties>
+
+    <dependencies>
+        <!-- Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.5</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <!-- Spring -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework-version}</version>
+            <exclusions>
+                <!-- Exclude Commons Logging in favor of SLF4j -->
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${org.springframework-version}</version>
+        </dependency>
+        
+<!--         <dependency> -->
+<!-- 			<groupId>org.springframework.data</groupId> -->
+<!-- 			<artifactId>spring-data-oracle</artifactId> -->
+<!-- 			<version>${org.springframework.data-version}</version> -->
+<!-- 			<exclusions> -->
+<!-- 				<exclusion> -->
+<!-- 					<artifactId>oracle.xml</artifactId> -->
+<!-- 					<groupId>com.oracle.xml</groupId> -->
+<!-- 				</exclusion> -->
+<!-- 			</exclusions> -->
+<!-- 		</dependency> -->
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.6.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+        <!-- Spring Security -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${org.springframework.security-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${org.springframework.security-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${org.springframework.security-version}</version>
+        </dependency>
+
+        <!-- Oracle JDBC Driver.  Must be installed in local Maven Repo! -->
+        <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc6</artifactId>
+            <version>10.2.0.4</version>
+        </dependency>
+        
+<!--         <dependency> -->
+<!--             <groupId>com.oracle</groupId> -->
+<!--             <artifactId>ojdbc6</artifactId> -->
+<!--             <version>11.2.0.3</version> -->
+<!--         </dependency> -->
+        
+		<dependency>
+			<groupId>oracle</groupId>
+  			<artifactId>xdb</artifactId>
+  			<version>11.1.1.2.0</version>
+  		</dependency>
+  		
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.oracle</groupId> -->
+<!--   			<artifactId>xmlparserv2</artifactId> -->
+<!--   			<version>11.1.1.3.0</version> -->
+<!--   		</dependency> -->
+
+<!-- 		<dependency> -->
+<!-- 			<groupId>com.oracle</groupId> -->
+<!-- 			<artifactId>xmlparserv2</artifactId> -->
+<!-- 			<version>jdeveloper</version> -->
+<!-- 			<type>jar</type> -->
+<!-- 			<scope>compile</scope> -->
+<!-- 		</dependency> -->
+
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>xmlparserv2</artifactId>
+			<version>sans_jaxp_services</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.0.b2</version>
+			<scope>provided</scope>
+		</dependency>
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>xerces</groupId> -->
+<!-- 			<artifactId>xercesImpl</artifactId> -->
+<!-- 			<version>2.6.2</version> -->
+<!-- 		</dependency> -->
+
+<!-- WebLogic -->
+<!-- 		<dependency> -->
+<!-- 			<groupId>oracle</groupId> -->
+<!-- 			<artifactId>weblogic</artifactId> -->
+<!-- 			<version>10.3.6.0</version> -->
+<!-- 		</dependency> -->
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>oracle</groupId> -->
+<!-- 			<artifactId>wlclient</artifactId> -->
+<!-- 			<version>10.3.6.0</version> -->
+<!-- 		</dependency> -->
+		
+<!-- 		<dependency> -->
+<!-- 			<groupId>oracle</groupId> -->
+<!-- 			<artifactId>wljmsclient</artifactId> -->
+<!-- 			<version>10.3.6.0</version> -->
+<!-- 		</dependency> -->
+            
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.3</version>
+        </dependency>
+
+        <!-- Caching -->
+        <dependency>
+            <groupId>net.sf.ehcache</groupId>
+            <artifactId>ehcache-core</artifactId>
+            <version>2.1.1</version> <!-- Older version to avoid classloader error in Weblogic -->
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.ehcache-spring-annotations</groupId>
+            <artifactId>ehcache-spring-annotations</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${org.slf4j-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${org.slf4j-version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.16</version>
+            <scope>runtime</scope>
+        </dependency>
+        
+        <!-- JDOM XML -->
+<!--         <dependency> -->
+<!--             <groupId>jdom</groupId> -->
+<!-- 			<artifactId>jdom</artifactId> -->
+<!-- 			<version>1.1</version> -->
+<!--         </dependency> -->
+
+    </dependencies>
+
+    <build>
+        <finalName>amcastleweb</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.26</version>
+            </plugin>
+            
+<!--             <plugin> -->
+<!--       			<artifactId>maven-assembly-plugin</artifactId> -->
+<!--       			<configuration> -->
+<!--         			<archive> -->
+<!--           				<manifest> -->
+<!--             				<mainClass>fully.qualified.MainClass</mainClass> -->
+<!--           				</manifest> -->
+<!--         			</archive> -->
+<!--         			<descriptorRefs> -->
+<!--           				<descriptorRef>jar-with-dependencies</descriptorRef> -->
+<!--         			</descriptorRefs> -->
+<!--       			</configuration> -->
+<!--     		</plugin> -->
+    
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>*.xml</include>
+                    <include>*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources/${resource.subdir}</directory>
+            </resource>
+        </resources>
+    </build>
+
+</project>
